@@ -32,13 +32,13 @@ Everything is modular, so it's possible to change almost everything.
 
 ## Default programming language installation (with asdf): 
 
-- Python 3.11.0
-- Ruby xx
-- Rust 1.68.2
-- Go 1.19.3
-- Node 19.2.0
-- Pearl xx.x.x
-- Open jdk xx.xx.xx
+- Python 3.11.3
+- Ruby 3.2.2
+- Rust 1.69.0
+- Go 1.20.4
+- Node 20.2.0
+- Perl 5.36.1
+- Open jdk 20.0.1
 
 ## Default Gnome installation:
 

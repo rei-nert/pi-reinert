@@ -18,3 +18,54 @@
 #
 # Tested for: Arch Linux, Ubuntu 22.04, Fedora 38, Debian stable/unstable
 # Tested DE/WM: Gnome, KDE, Sway, XFCE
+#
+
+Distro=$(. /etc/os-release && printf '%s\n' "$NAME")
+AL=("Arch Linux")
+Debian=("Debian" "Ubuntu 22.04")
+RHEL=("Fedora 38")
+Installer=''
+
+if [[ " ${AL[*]} " =~ $Distro ]]; then
+  Installer="pacman"
+elif [[ " ${Debian[*]} " =~ $Distro ]]; then
+  Installer="apt"
+elif [[ " ${RHEL[*]} " =~ $Distro ]]; then
+  Installer="dnf"
+else
+  echo "Distro not supported. "
+  echo "Supported distros are: Debian stable/unstable; Ubuntu 22.04; Arch Linux; Fedora 38"
+  echo
+fi
+
+Update()
+{
+  if [[ "$Installer" == "pacman" ]]; then
+    sudo pacman -Syu --noconfirm
+  elif [[ "$Installer" == "apt" ]]; then
+    sudo apt update
+    sudo apt upgrade -y
+  elif [[ "$Installer" == "dnf" ]]; then
+    sudo dnf update -y
+  else
+    echo "Error: unable to update"
+  fi
+}
+
+Install()
+{
+  if [[  "$Installer" == "pacman " ]]; then
+    sudo pacman -Syu --noconfirm "$@"
+  elif [[ "$Installer" == "apt" ]]; then
+    sudo apt install -y "$@"
+  elif [[ "$Installer" == "dnf" ]]; then
+    sudo dnf install -y "$@"
+  else
+    echo "Error: unable to install"
+  fi
+}
+
+Update
+Install apparmor
+sudo systemctl enable apparmor.service
+sudo systemctl start apparmor.service
